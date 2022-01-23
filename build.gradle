@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'application'
+
+}
+
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+}
+
+run {
+    standardInput = System.in
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+mainClassName = 'it.simeonegiovanni.DeckLibrary.Main.Main'
