@@ -1,7 +1,7 @@
 package it.simeonegiovanni.DeckLibrary.Game;
 
-import it.simeonegiovanni.DeckLibrary.players.Player;
-
+import it.simeonegiovanni.DeckLibrary.Library.Card;
+import it.simeonegiovanni.DeckLibrary.Library.Player;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,18 +11,17 @@ import java.util.Random;
  */
 public class Game {
 
-    public static final boolean DEBUG = true;
-    private Player playerA, playerB;
-    private Deck deck;
-    private Card tableCard;
+    protected final Player playerA, playerB;
+    protected final ImplDeck deck;
+    protected final Card tableCard;
 
-    private boolean ended = false;
+    protected boolean ended = false;
 
     /**
      * True  -> Player A Comincia
      * False -> Player B Comincia
      */
-    private boolean turn;
+    protected boolean turn;
 
     /**
      * Inizializza il gioco facendo pescare 3 carte ad ogni giocatori, la briscola  e scegliendo casualmente il primo giocatore di mano.
@@ -32,7 +31,7 @@ public class Game {
     public Game(Player playerA, Player playerB) {
         this.playerA = playerA;
         this.playerB = playerB;
-        deck = new Deck(false);
+        deck = new ImplDeck(false);
         for (int i = 0; i < 3; i++) {
             this.playerA.draw(deck.draw());
             this.playerB.draw(deck.draw());
@@ -44,13 +43,12 @@ public class Game {
 
     /**
      * Simula il gioco fino alla fine e poi termina il gioco.
-     * @return vincitore della partita. Null se il gioco finisce in parità.
      */
-    public Player run() {
+    public void run() {
         while (!ended) step();
-        if (playerA.getPoints() > playerB.getPoints()) return playerA;
-        if (playerB.getPoints() > playerA.getPoints()) return playerB;
-        return null;
+        if (playerA.getPoints() > playerB.getPoints()) return;
+        playerB.getPoints();
+        playerA.getPoints();
     }
 
     /**
@@ -75,21 +73,23 @@ public class Game {
         hand.add(c1);
         hand.add(c2);
 
+        assert c1 != null;
+        assert c2 != null;
         boolean firstWins = Rules.doesFirstCardWin(c1, c2, tableCard.getSuit());
         Player winner = firstWins ? p1 : p2;
         Player loser  = firstWins ? p2 : p1;
         log("Player "+(winner == playerA ? "A" : "B")+" won the hand.");
 
         winner.take(hand);
-        if (!deck.isEmpty()) winner.draw(deck.draw());
-        if (!deck.isEmpty()) loser.draw(deck.draw());
+        if (deck.isEmpty()) winner.draw(deck.draw());
+        if (deck.isEmpty()) loser.draw(deck.draw());
 
         turn = winner == playerA;
 
-        if (!playerA.hasCardsInHand() || !playerA.hasCardsInHand()) ended = true;
+        if (playerA.hasCardsInHand() || playerA.hasCardsInHand()) ended = true;
     }
 
-    private void log(String in) {
+    protected void log(String in) {
         System.out.println("[Game] "+in);
     }
 }

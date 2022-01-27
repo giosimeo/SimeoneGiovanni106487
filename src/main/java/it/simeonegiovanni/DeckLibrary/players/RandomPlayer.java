@@ -1,13 +1,16 @@
 package it.simeonegiovanni.DeckLibrary.players;
 
-import it.simeonegiovanni.DeckLibrary.Game.Deck;
-import it.simeonegiovanni.DeckLibrary.Game.Card;
+import it.simeonegiovanni.DeckLibrary.Game.ImplDeck;
+import it.simeonegiovanni.DeckLibrary.Library.Card;
+import it.simeonegiovanni.DeckLibrary.Game.PlayerImpl;
+import it.simeonegiovanni.DeckLibrary.Library.InPlayer;
 
 import java.util.Random;
 
-public class RandomPlayer extends Player implements InPlayer {
+public class RandomPlayer extends PlayerImpl implements InPlayer {
+
     @Override
-    public int chooseCard(Deck opponentPoints, Card opponentCard, Card tableCard) {
+    public int chooseCard(ImplDeck opponentPoints, Card opponentCard, Card tableCard) {
         return new Random().nextInt(getHand().size());
     }
 }

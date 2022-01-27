@@ -1,7 +1,6 @@
-package it.simeonegiovanni.DeckLibrary.Main;
+package it.simeonegiovanni.DeckLibrary.Game;
 
-import it.simeonegiovanni.DeckLibrary.Game.Game;
-import it.simeonegiovanni.DeckLibrary.players.Player;
+import it.simeonegiovanni.DeckLibrary.Library.Player;
 import it.simeonegiovanni.DeckLibrary.players.RandomPlayer;
 import it.simeonegiovanni.DeckLibrary.players.RealPlayer;
 

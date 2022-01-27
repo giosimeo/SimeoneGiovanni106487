@@ -1,4 +1,5 @@
-package it.simeonegiovanni.DeckLibrary.Game;
+package it.simeonegiovanni.DeckLibrary.Library;
+
 
 public interface InCard {
     Card.Suit getSuit();
